@@ -191,7 +191,7 @@ namespace Labo2
                         }
                         else if(Borne1 > Moyenne)
                         {
-                            probFinale = Gprob1 - Gprob2);
+                            probFinale = Gprob1 - Gprob2;
                         }
                         else
                         {
