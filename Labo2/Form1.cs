@@ -64,7 +64,6 @@ namespace Labo2
             CMB_Prob.Items.Add(">");
             CMB_Prob.Items.Add("<");
             CMB_Prob.Items.Add("< >");
-            CMB_Prob.Items.Add("> <");
         }
 
         private void BTN_Calculer_Click(object sender, EventArgs e)
@@ -183,17 +182,22 @@ namespace Labo2
                         Gprob1 = prob1;
                         Gprob2 = prob2;
                         mettrePositif();
-                        if (Borne1 > Borne2)
-                            probFinale = Gprob1 - Gprob2;
+                        if ((Borne1 > Moyenne && Borne2 > Moyenne) || (Borne1 < Moyenne && Borne2 < Moyenne))
+                        {
+                            if (Borne1 > Borne2)
+                                probFinale = Gprob1 - Gprob2;
+                            else
+                                probFinale = Gprob2 - Gprob1;
+                        }
+                        else if(Borne1 > Moyenne)
+                        {
+                            probFinale = Gprob1 - Gprob2);
+                        }
                         else
-                            probFinale = Gprob2 - Gprob1;
-
-
-                        break;
-                    }
-                case 3: // > <
-                    {
-                        probFinale = prob1 - (1 - prob2);
+                        {
+                            probFinale = (Gprob2 - Gprob1);
+                        }
+                        
                         break;
                     }
             }
