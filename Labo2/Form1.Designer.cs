@@ -37,9 +37,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.CMB_Prob = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.TB_Prob = new System.Windows.Forms.TextBox();
+            this.TB_Borne1 = new System.Windows.Forms.TextBox();
             this.BTN_Calculer = new System.Windows.Forms.Button();
-            this.TB_Prob2 = new System.Windows.Forms.TextBox();
+            this.TB_Borne2 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -119,12 +119,12 @@
             this.label5.TabIndex = 10;
             this.label5.Text = "Borne(s) :";
             // 
-            // TB_Prob
+            // TB_Borne1
             // 
-            this.TB_Prob.Location = new System.Drawing.Point(63, 107);
-            this.TB_Prob.Name = "TB_Prob";
-            this.TB_Prob.Size = new System.Drawing.Size(57, 20);
-            this.TB_Prob.TabIndex = 6;
+            this.TB_Borne1.Location = new System.Drawing.Point(63, 107);
+            this.TB_Borne1.Name = "TB_Borne1";
+            this.TB_Borne1.Size = new System.Drawing.Size(57, 20);
+            this.TB_Borne1.TabIndex = 6;
             // 
             // BTN_Calculer
             // 
@@ -136,12 +136,12 @@
             this.BTN_Calculer.UseVisualStyleBackColor = true;
             this.BTN_Calculer.Click += new System.EventHandler(this.BTN_Calculer_Click);
             // 
-            // TB_Prob2
+            // TB_Borne2
             // 
-            this.TB_Prob2.Location = new System.Drawing.Point(182, 107);
-            this.TB_Prob2.Name = "TB_Prob2";
-            this.TB_Prob2.Size = new System.Drawing.Size(70, 20);
-            this.TB_Prob2.TabIndex = 7;
+            this.TB_Borne2.Location = new System.Drawing.Point(182, 107);
+            this.TB_Borne2.Name = "TB_Borne2";
+            this.TB_Borne2.Size = new System.Drawing.Size(70, 20);
+            this.TB_Borne2.TabIndex = 7;
             // 
             // label6
             // 
@@ -168,10 +168,10 @@
             this.ClientSize = new System.Drawing.Size(284, 203);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.TB_Prob2);
+            this.Controls.Add(this.TB_Borne2);
             this.Controls.Add(this.BTN_Calculer);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.TB_Prob);
+            this.Controls.Add(this.TB_Borne1);
             this.Controls.Add(this.CMB_Prob);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.TB_Resultat);
@@ -199,9 +199,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox CMB_Prob;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox TB_Prob;
+        private System.Windows.Forms.TextBox TB_Borne1;
         private System.Windows.Forms.Button BTN_Calculer;
-        private System.Windows.Forms.TextBox TB_Prob2;
+        private System.Windows.Forms.TextBox TB_Borne2;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
     }

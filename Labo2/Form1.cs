@@ -25,7 +25,10 @@ namespace Labo2
         private double nbArrondisDixieme;
         private double nbArrondisDixieme2;
         private double Borne1;
+        private double Moyenne;
         private double Borne2;
+        private float Gprob1;
+        private float Gprob2;
 
         #region "ReadFrom CSV"
 
@@ -73,7 +76,7 @@ namespace Labo2
             else
                 choix2Bornes = false;
 
-            if (TB_Prob.Text == "" || TB_Prob2.Text == "" && choix2Bornes)
+            if (TB_Borne1.Text == "" || TB_Borne2.Text == "" && choix2Bornes)
             {
                 MessageBox.Show("Erreur! Vous devez entrer deux probabilités pour exécuter cette comparaison.");
             }
@@ -82,8 +85,8 @@ namespace Labo2
                 try
                 {
                     // Premiere borne
-                    Borne1 = Convert.ToDouble(TB_Prob.Text);
-                    double Moyenne = Convert.ToDouble(TB_Moyenne.Text);
+                    Borne1 = Convert.ToDouble(TB_Borne1.Text);
+                    Moyenne = Convert.ToDouble(TB_Moyenne.Text);
                     double EcartType = Convert.ToDouble(TB_EcartType.Text);
                     double CoteZ1 = (Borne1 - Moyenne) / EcartType;
                     float Prob1 = 0.0f;
@@ -91,9 +94,9 @@ namespace Labo2
                     double CoteZ2 = 0;
                     float Prob2 = 0.0f;
 
-                    if (TB_Prob2.Text != "")
+                    if (TB_Borne2.Text != "")
                     {
-                        Borne2 = Convert.ToDouble(TB_Prob2.Text);
+                        Borne2 = Convert.ToDouble(TB_Borne2.Text);
                         CoteZ2 = (Borne2 - Moyenne) / EcartType;
                     }
 
@@ -127,30 +130,72 @@ namespace Labo2
         private void CalculerProbabilite(float prob1, float prob2)
         {
             float probFinale = 0.0f;
-            if (CMB_Prob.SelectedIndex == 0) // >
+            bool deuxBorne = true;
+
+            if (prob2 == 0)
+                deuxBorne = false;
+
+            switch (CMB_Prob.SelectedIndex)
             {
-                if (prob1 < prob2 && prob1 != 0)
-                    probFinale = 1 - prob2;
-                else
-                    probFinale = 1 - prob1;
-            }
-            else
-            {
-                if (CMB_Prob.SelectedIndex == 1) // <
-                {
-                    if (prob1 > prob2 && prob2 != 0)
-                        probFinale = prob2;
-                    else
-                        probFinale = prob1;
-                }
-                else if (CMB_Prob.SelectedIndex == 2) // < >
-                {
-                    probFinale = (1 - prob2) + (1 - prob1);
-                }
-                else if (CMB_Prob.SelectedIndex == 3) // > <
-                {
-                    probFinale = prob1 - (1 - prob2);
-                }
+                case 0: // > PROOF
+                    {
+                        if (!deuxBorne)
+                        {
+                            if (Borne1 > Moyenne)
+                                probFinale = 1 - prob1;
+                            else
+                                probFinale = prob1;
+                        }
+                        else
+                        {
+                            if (Borne1 < Borne2)
+                                prob1 = prob2;
+                            if (Borne1 > Moyenne)
+                                probFinale = 1 - prob1;
+                            else
+                                probFinale = prob1;
+                        }
+                        break;
+                    }
+                case 1: // < PROOF
+                    {
+                        if (!deuxBorne)
+                        {
+                            if (Borne1 < Moyenne)
+                                probFinale = 1 - prob1;
+                            else
+                                probFinale = prob1;
+                        }
+                        else
+                        {
+                            if (Borne1 > Borne2)
+                                prob1 = prob2;
+                            if (Borne1 < Moyenne)
+                                probFinale = 1 - prob1;
+                            else
+                                probFinale = prob1;
+
+                        }
+                        break;
+                    }
+                case 2: //< >
+                    {
+                        Gprob1 = prob1;
+                        Gprob2 = prob2;
+                        mettrePositif();
+                        if (Borne1 > Borne2)
+                            probFinale = Gprob1 - Gprob2;
+                        else
+                            probFinale = Gprob2 - Gprob1;
+
+
+                        break;
+                    }
+                case 3: // > <
+                    {
+                        probFinale = prob1 - (1 - prob2);
+                        break;
+                    }
             }
             probFinale = (float)Math.Round(100 * probFinale);
             TB_Resultat.Text = probFinale.ToString() + "%";
@@ -166,6 +211,18 @@ namespace Labo2
             {
                 Centieme = Math.Abs((Math.Truncate(100 * CoteZ) - (10 * Math.Truncate(10 * CoteZ))) / 100); // Ex: 12.35 - 12.3 = 0.05
                 nbArrondisDixieme = Math.Abs((Math.Truncate(10 * CoteZ) / 10)); // Ex 3.32 --> 3.3
+            }
+
+        }
+        private void mettrePositif()
+        {
+            if (Borne1 < Moyenne)
+            {
+                Gprob1 = 1 - Gprob1;
+            }
+            if (Borne2 < Moyenne)
+            {
+                Gprob2 = 1 - Gprob2;
             }
 
         }
